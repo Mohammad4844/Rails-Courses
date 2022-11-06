@@ -3,7 +3,7 @@
 <%= render "form", course: @course %>
 
 <br>
+<%= link_to "Show", @course, class: "btn btn-dark"  %>
+<%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<%= link_to "Back to courses", courses_path, class: "btn btn-secondary" %>
 
-<div>
-  <%= link_to "Back to courses", courses_path, class: "btn btn-secondary" %>
-</div>

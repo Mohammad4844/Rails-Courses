@@ -1,41 +1,41 @@
-<div id="courses">
-  <table class="table table-striped table-bordered table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>Course Code</th>
-        <th>Course Name</th>
-        <th>Credit Hours</th>
-        <th>Instructor</th>
-        <th>Days</th>
-        <th>Timings</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+<% if user_signed_in? %>
+  <div id="courses">
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Course Code</th>
+          <th>Course Name</th>
+          <th>Credit Hours</th>
+          <th>Instructor</th>
+          <th>Days</th>
+          <th>Timings</th>
+          <th></th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <% @courses.each do |course| %>
-        <% if course.user == current_user %>
-          <tr>
-            <td><%= course[:code] %></td>
-            <td><%= course[:name] %></td>
-            <td><%= course[:credits] %></td>
-            <td><%= course[:instructor] %></td>
-            <td><%= course[:days] %></td>
-            <td><%= course[:timing] %></td>
-            <td>
-              <%= link_to "Show", course %>
-            </td>
-            <td>
-              <%= link_to "Edit", edit_course_path(course) %>
-            </td>
-            <td>
-              <%= button_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-            </td>
-          </tr>
+      <tbody>
+        <% @courses.each do |course| %>
+          <% if course.user == current_user %>
+            <tr>
+              <td><%= link_to course[:code], course  %></td>
+              <td><%= course[:name] %></td>
+              <td><%= course[:credits] %></td>
+              <td><%= course[:instructor] %></td>
+              <td><%= course[:days] %></td>
+              <td><%= course[:timing] %></td>
+              <td>
+                <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </tbody>
+    </table>
+  </div>
 
-<%= link_to "New course", new_course_path, class: "btn btn-secondary"%>
+  <%= link_to "New course", new_course_path, class: "btn btn-secondary"%>
+<% else %>
+  <h1>Hello</h1>
+  This is my first page
+
+<% end %>

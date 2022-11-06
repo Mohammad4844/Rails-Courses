@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:show ,:edit, :update, :destroy]
 
   # GET /courses or /courses.json
   def index
@@ -64,8 +64,8 @@ class CoursesController < ApplicationController
   end
 
   def correct_user
-    @course = current_user.courses.find_by(id: params[:id])
-    redirect_to courses_path, notice: "Not authorized to edit this course" if @course.nil?
+    @course = Course.find_by(id: params[:id])
+    redirect_to courses_path, notice: "Not authorized to edit this course" if @course.user_id != current_user.id
   end
 
   private

@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /courses or /courses.json
   def index
@@ -13,6 +15,8 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
     @course = Course.new
+    @course.user = current_user
+    #@course = current_user.courses.build
   end
 
   # GET /courses/1/edit
@@ -22,6 +26,8 @@ class CoursesController < ApplicationController
   # POST /courses or /courses.json
   def create
     @course = Course.new(course_params)
+    @course.user = current_user
+    # @course = current_user.courses.build(course_params)
 
     respond_to do |format|
       if @course.save
@@ -57,6 +63,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def correct_user
+    @course = current_user.courses.find_by(id: params[:id])
+    redirect_to courses_path, notice: "Not authorized to edit this course" if @course.nil?
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -65,6 +76,6 @@ class CoursesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:code, :name, :credits, :instructor, :days, :timing, :description)
+      params.require(:course).permit(:code, :name, :credits, :instructor, :days, :timing, :description, :user_id)
     end
 end

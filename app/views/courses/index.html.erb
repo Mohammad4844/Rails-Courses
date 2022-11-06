@@ -14,23 +14,25 @@
 
     <tbody>
       <% @courses.each do |course| %>
-        <tr>
-          <td><%= course[:code] %></td>
-          <td><%= course[:name] %></td>
-          <td><%= course[:credits] %></td>
-          <td><%= course[:instructor] %></td>
-          <td><%= course[:days] %></td>
-          <td><%= course[:timing] %></td>
-          <td>
-            <%= link_to "Show", course %>
-          </td>
-          <td>
-            <%= link_to "Edit", edit_course_path(course) %>
-          </td>
-          <td>
-            <%= button_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-          </td>
-        </tr>
+        <% if course.user == current_user %>
+          <tr>
+            <td><%= course[:code] %></td>
+            <td><%= course[:name] %></td>
+            <td><%= course[:credits] %></td>
+            <td><%= course[:instructor] %></td>
+            <td><%= course[:days] %></td>
+            <td><%= course[:timing] %></td>
+            <td>
+              <%= link_to "Show", course %>
+            </td>
+            <td>
+              <%= link_to "Edit", edit_course_path(course) %>
+            </td>
+            <td>
+              <%= button_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

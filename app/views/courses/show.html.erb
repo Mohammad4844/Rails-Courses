@@ -1,0 +1,18 @@
+<div class="bg-light p-5 rounded-lg m-3">
+
+  <h1 class="display-4"><%= @course[:code] + " - " + @course[:name] %></h1>
+  
+  <p class="lead"><%= @course[:description] %></p>
+  <hr class="my-4">
+  <p><strong>Credit Hours:</strong> <%= @course[:credits] %></p>
+  <p><strong>Instructor:</strong> <%= @course[:instructor] %></p>
+  <p><strong>Days:</strong> <%= @course[:days] %></p>
+  <p><strong>Timing:</strong> <%= @course[:timing] %></p>
+
+  <div>
+    <%= link_to "Edit this course", edit_course_path(@course), class: "btn btn-dark" %>
+    <%= link_to "Back to courses", courses_path, class: "btn btn-secondary"%>
+    <br><br>
+    <%= button_to "Destroy this course", @course, method: :delete, class: "btn btn-danger" %>
+  </div>
+</div>

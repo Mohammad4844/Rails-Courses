@@ -35,7 +35,15 @@
 
   <%= link_to "New course", new_course_path, class: "btn btn-secondary"%>
 <% else %>
-  <h1>Hello</h1>
-  This is my first page
-
+  <h1>Hi!</h1>
+  <p class="lead">
+    This is a simple CRUD app where you can add / edit / delete courses. Courses saved are associated with 
+    only your account, and only you can view / edit them. Here is a screenshot of the interface:
+  </p>
+  <br>
+  <div class="mb-3">
+    <%= image_tag('courses-app-table-sample.png', class: "img-thumbnail img-fluid border-dark") %>
+  </div>
+  <br>
+  <p class="lead">Create an account to get started!</p>
 <% end %>
